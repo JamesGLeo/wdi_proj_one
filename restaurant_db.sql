@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS orders CASCADE;
 
 CREATE TABLE parties(
   id SERIAL PRIMARY KEY,
-  table integer,
+  assigned_table integer,
   groupsize integer,
   paid_check boolean
 );
