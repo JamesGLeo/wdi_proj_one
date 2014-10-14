@@ -1,0 +1,11 @@
+<h2>Edit a Menu Item</h2>
+
+<form action="/foods/<%= @food.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="food[dishname]" placeholder="Item">
+  <input type="text" name="food[price]" placeholder="Price">
+  <input type="text" name="food[course]" placeholder="Appetizer, Soup, etc...">  
+  <input type="text" name="food[allergens]" placeholder="Allergens">
+  <input type="text" name="food[calories]" placeholder="Calories">
+  <input type="submit" value="Edit this menu item">
+</form>

@@ -12,6 +12,7 @@ CREATE TABLE parties(
 CREATE TABLE foods(
   id SERIAL PRIMARY KEY,
   dishname varchar(255),
+  course varchar(255),
   price money,
   allergens varchar(510),
   calories integer

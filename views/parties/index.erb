@@ -1,0 +1,11 @@
+<h2>Current Parties</h2>
+
+<ul>
+  <% @parties.each do |party| %>
+    <li>
+        Table: <%= party.assigned_table %>
+        Group of: <%= party.groupsize %>
+        Check Paid? <% return "Yes" if true %>
+      </li>
+  <% end %>  
+</ul>

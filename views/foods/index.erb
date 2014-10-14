@@ -1,0 +1,7 @@
+<h2>Menu</h2>
+
+<ul>
+  <% @foods.each do |food| %>
+    <li><a href="/foods/:id"><%= food.dishname %></a> <%= food.price %></li>
+  <% end %>
+</ul>
