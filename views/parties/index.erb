@@ -3,9 +3,9 @@
 <ul>
   <% @parties.each do |party| %>
     <li>
-        Table: <%= party.assigned_table %>
-        Group of: <%= party.groupsize %>
-        Check Paid? <% return "Yes" if true %>
+        <a href="/parties/<%= party.id %>">Table: <%= party.assigned_table %></a>
+        <div>Group of: <%= party.groupsize %></div>
+        <div>Check Paid? <%= party.paid_check == true ? "Yes" : "No" %></div>
       </li>
   <% end %>  
 </ul>

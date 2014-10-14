@@ -1,0 +1,12 @@
+<h2>Table <%= @party.assigned_table %></h2>
+
+<h3>Group Size : <%= @party.groupsize %></h3>
+<h3>Check Paid? : <%= @party.paid_check == true ? "Yes" : "No" %> </h3>
+
+
+<h4><a href="/parties/<%= @party.id %>/edit">Edit guest party</a></h4>
+
+<form action="/parties/<%= @party.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete party">
+</form>

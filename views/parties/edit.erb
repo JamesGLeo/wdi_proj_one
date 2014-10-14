@@ -1,0 +1,12 @@
+<h2>Edit Table <%= @party.assigned_table %></h2>
+
+<form action="/parties/<%= @party.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="party[assigned_table]" placeholder="Table No.">
+  <input type="text" name="party[groupsize]" placeholder="# of Guests">
+  <input type="text" name="party[paid_check]" placeholder="Check Paid?">
+<!-- METHOD FOR ADDING FOOD ITEMS GO HERE -->
+
+  <input type="submit" value="Alter table">
+</form>
+

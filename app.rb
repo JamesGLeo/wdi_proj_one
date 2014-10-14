@@ -58,12 +58,43 @@ get '/parties' do
   erb :'/parties/index'
 end
 
-# GET   /parties/:id  Display a single party and options for adding a food item to the party
 # GET   /parties/new  Display a form for a new party
+get '/parties/new' do
+  erb :'parties/new'
+end
+
 # POST  /parties  Creates a new party
+post '/parties' do
+  party = Party.create(params[:party])
+  redirect "/parties/#{party.id}"
+end
+
+# GET   /parties/:id  Display a single party and options for adding a food item to the party
+get '/parties/:id' do
+  @party = Party.find(params[:id])
+  erb :'/parties/show'
+end
+
 # GET   /parties/:id/edit   Display a form for to edit a party's details
+get '/parties/:id/edit' do
+  @party = Party.find(params[:id])
+  erb :'/parties/edit'
+end
+
 # PATCH   /parties/:id  Updates a party's details
+patch '/parties/:id' do
+  party = Party.find(params[:id])
+  party.update(params[:party])
+  redirect "/parties/#{party.id}"
+end
+
 # DELETE  /parties/:id  Delete a party
+delete '/parties/:id' do
+  party = Party.destroy(params[:id])
+  redirect "/parties"
+end
+
+
 # POST  /orders   Creates a new order
 # PATCH   /orders/:id   Change item to no-charge
 # DELETE  /orders   Removes an order
