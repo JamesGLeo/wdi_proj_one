@@ -1,3 +1,6 @@
+# As an employee, I want to be able to add food items to a party as they order them... so I can keep track of a party's orders
+# As an employee, I want to be able to create a receipt ... so I can print it
+
 require 'bundler'
 Bundler.require(:default)
 require './connection'
@@ -72,6 +75,7 @@ end
 # GET   /parties/:id  Display a single party and options for adding a food item to the party
 get '/parties/:id' do
   @party = Party.find(params[:id])
+  @foods = Food.all
   erb :'/parties/show'
 end
 
@@ -92,11 +96,21 @@ end
 delete '/parties/:id' do
   party = Party.destroy(params[:id])
   redirect "/parties"
+end 
+
+# POST  /orders   Creates a new order
+post '/orders' do
+  @order = Order.create(params[:order])
+  erb :'/parties/show'
 end
 
 
-# POST  /orders   Creates a new order
-# PATCH   /orders/:id   Change item to no-charge
+# PATCH   /orders/:id   Change item to no-charge  
 # DELETE  /orders   Removes an order
 # GET   /parties/:id/receipt  Saves the party's receipt data to a file. Displays the content of the receipt. Offer the file for download.
 # PATCH   /parties/:id/checkout   Marks the party as paid 
+
+
+get '/console' do
+  binding.pry
+end

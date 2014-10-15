@@ -10,3 +10,27 @@
   <input type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete party">
 </form>
+
+<h2>Current Orders</h2>
+<ul>
+<% @party.foods.each do |food| %>
+  <li><%= food.dishname %></li>
+<% end %>
+</ul>
+
+<h2>Place an Order</h2>
+
+ <form action="/orders" method="post">
+  <input type="hidden" name="orders[party_id]" value="<%= @party.id %>">
+  <% @foods.each do |food| %>
+  <input type="text" name="orders[food_id]" value="<%= food.id %>">
+  <% end %>
+
+
+<!-- 
+
+  <input type="text" name="orders[assigned_table]" placeholder="Table No.">
+  <input type="text" name="party[groupsize]" placeholder="# of Guests">
+  <input type="text" name="party[paid_check]" placeholder="Check Paid?"> -->
+  <input type="submit" value="Enter order">
+</form>

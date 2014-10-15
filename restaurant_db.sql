@@ -18,8 +18,7 @@ CREATE TABLE foods(
   calories integer
 );
 
-CREATE TABLE\q
- orders(
+CREATE TABLE orders(
   id SERIAL PRIMARY KEY,
   time TIMESTAMP,
   party_id INTEGER,
