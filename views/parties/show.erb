@@ -13,24 +13,36 @@
 
 <h2>Current Orders</h2>
 <ul>
-<% @party.foods.each do |food| %>
-  <li><%= food.dishname %></li>
-<% end %>
+  <% @party.orders.each do |order| %>
+  <li> 
+    <%= order.food.dishname %> 
+    <form action="/orders/<%= order.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="order[id]" value="<%= order.id %>">
+      <input type="submit" value="Delete Order">
+    </form>
+
+    <form action="/orders/<%= order.id %>" method="post">
+      <input type="hidden" name="_method" value="patch">
+        <% binding.pry %>
+
+      <input type="hidden" name="food[price]" value=0>
+      <input type="submit" value="On the House">
+    </form>
+  </li>
+  <% end %>
 </ul>
 
 <h2>Place an Order</h2>
 
- <form action="/orders" method="post">
-  <input type="hidden" name="orders[party_id]" value="<%= @party.id %>">
+<form action="/orders" method="post">
+  <ul>
   <% @foods.each do |food| %>
-  <input type="text" name="orders[food_id]" value="<%= food.id %>">
+  <li><input type="checkbox" name="food[<%= food.id %>]"><%= food.dishname %></li>
   <% end %>
-
-
-<!-- 
-
-  <input type="text" name="orders[assigned_table]" placeholder="Table No.">
-  <input type="text" name="party[groupsize]" placeholder="# of Guests">
-  <input type="text" name="party[paid_check]" placeholder="Check Paid?"> -->
+  </ul>
+  <input type="hidden" name="party[party_id]" value="<%= @party.id %>">
   <input type="submit" value="Enter order">
 </form>
+
+

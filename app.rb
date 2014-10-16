@@ -75,6 +75,7 @@ end
 # GET   /parties/:id  Display a single party and options for adding a food item to the party
 get '/parties/:id' do
   @party = Party.find(params[:id])
+  # @party.foods shows all food items ordered by a party 
   @foods = Food.all
   erb :'/parties/show'
 end
@@ -94,20 +95,55 @@ end
 
 # DELETE  /parties/:id  Delete a party
 delete '/parties/:id' do
-  party = Party.destroy(params[:id])
+  party = Party.delete(params[:id])
   redirect "/parties"
 end 
 
 # POST  /orders   Creates a new order
 post '/orders' do
-  @order = Order.create(params[:order])
-  erb :'/parties/show'
+  foods =  params['food'].keys.map{ |id| Food.find(id) }
+  party = Party.find(params[:party][:party_id])
+  foods.each do |food|
+    party.foods << food
+  end
+ redirect "/parties/#{party.id}"
 end
 
-
 # PATCH   /orders/:id   Change item to no-charge  
+patch 'orders/:id' do
+  order = Order.find(params[:id])
+  order.update(params[:order])
+  redirect "/parties/#{party.id}"
+end
+
 # DELETE  /orders   Removes an order
+delete '/orders/:id' do
+  old_order = Order.destroy(params[:order][:id])
+  redirect "/parties/#{old_order.party.id}"
+end
+
 # GET   /parties/:id/receipt  Saves the party's receipt data to a file. Displays the content of the receipt. Offer the file for download.
+# get '/parties/:id/order' do
+#   @orders_made = File.read('orders_made.txt').split("\n")
+#   erb :'/index/show'
+# end
+
+# post '/parties/:id/receipt' do
+#   new_receipt = params[:order]
+
+#   file = File.open('orders_made.txt', 'a')
+#   file.write(order + "\n----------------\n")
+#   file.close
+
+#   redirect('/')
+# end
+
+get '/whats_for_lunch' do
+  possible_lunches = File.read('saved_lunches.txt').split("\n")
+  @lunch = possible_lunches.sample
+  erb(:lunch_spots)
+end
+
 # PATCH   /parties/:id/checkout   Marks the party as paid 
 
 
