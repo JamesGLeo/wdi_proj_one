@@ -22,5 +22,6 @@ CREATE TABLE orders(
   id SERIAL PRIMARY KEY,
   time TIMESTAMP,
   party_id INTEGER,
-  food_id INTEGER
+  food_id INTEGER,
+  charge boolean
 );

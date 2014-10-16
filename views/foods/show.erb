@@ -11,3 +11,11 @@
   <input type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete menu item">
 </form>
+
+<h3>Tables Waiting on This Item</h3>
+
+<ul>
+  <% @food.orders.each do |order| %>
+    <li><%= order.party.assigned_table %></li>
+  <% end %>
+</ul>

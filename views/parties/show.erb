@@ -1,9 +1,19 @@
+<!-- Party Info -->
 <h2>Table <%= @party.assigned_table %></h2>
 
 <h3>Group Size : <%= @party.groupsize %></h3>
-<h3>Check Paid? : <%= @party.paid_check == true ? "Yes" : "No" %> </h3>
+<h3>Check Paid? : <%= @party.paid_check == "yes" ? "Yes" : "No" %> </h3>
 
+<!-- Print Receipt -->
+<form action="/receipts" method="post">
+  <% @party.orders.each do |order| %>
+  <input type="hidden" name="order[dishname][]" value="<%= order.food.dishname %>">
+  <input type="hidden" name="order[price][]" value="<%= order.food.price %>">  
+  <% end %>
+  <input type="submit" value="Print Receipt">
+</form>
 
+<!-- Form to Edit Party -->
 <h4><a href="/parties/<%= @party.id %>/edit">Edit guest party</a></h4>
 
 <form action="/parties/<%= @party.id %>" method="post">
@@ -12,34 +22,39 @@
 </form>
 
 <h2>Current Orders</h2>
-<ul>
+<table>
   <% @party.orders.each do |order| %>
-  <li> 
-    <%= order.food.dishname %> 
+  
+  <tr> 
+  <td><%= order.food.dishname %> - - - P:<%= order.food.price %></td> 
+
+    <td>
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <input type="hidden" name="order[id]" value="<%= order.id %>">
-      <input type="submit" value="Delete Order">
+      <input type="submit" value="Delete   Order">
     </form>
-
+    </td>
+    <td>
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="patch">
-        <% binding.pry %>
-
-      <input type="hidden" name="food[price]" value=0>
-      <input type="submit" value="On the House">
+      <input type="hidden" name="order[charge]" value="<%= false %>">
+      <input type="submit" value="On the House"> 
     </form>
-  </li>
+    </td>
+  </tr>
   <% end %>
-</ul>
+</table>
+
 
 <h2>Place an Order</h2>
 
 <form action="/orders" method="post">
   <ul>
-  <% @foods.each do |food| %>
-  <li><input type="checkbox" name="food[<%= food.id %>]"><%= food.dishname %></li>
-  <% end %>
+    <% @foods.each do |food| %>
+      <li><input type="checkbox" name="food[<%= food.id %>]"><%= food.dishname %></li>
+      <input type="hidden" name="order[charge]" value="<%= true %>">
+    <% end %>
   </ul>
   <input type="hidden" name="party[party_id]" value="<%= @party.id %>">
   <input type="submit" value="Enter order">
