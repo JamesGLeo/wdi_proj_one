@@ -2,7 +2,7 @@
 <h2>Table <%= @party.assigned_table %></h2>
 
 <h3>Group Size : <%= @party.groupsize %></h3>
-<h3>Check Paid? : <%= @party.paid_check == "yes" ? "Yes" : "No" %> </h3>
+<h3>Check Paid? : <%= @party.paid_check == "true" ? "Yes" : "No" %> </h3>
 
 <!-- Print Receipt -->
 <form action="/receipts" method="post">
@@ -32,7 +32,7 @@
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <input type="hidden" name="order[id]" value="<%= order.id %>">
-      <input type="submit" value="Delete   Order">
+      <input type="submit" value="Delete Order">
     </form>
     </td>
     <td>
@@ -46,6 +46,11 @@
   <% end %>
 </table>
 
+<form action="/parties/<%= @party.id %>/checkout" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="party[paid_check]" value="<%= true %>">
+  <input type="submit" value="Checkout">
+</form>
 
 <h2>Place an Order</h2>
 

@@ -156,7 +156,9 @@ end
 # PATCH   /parties/:id/checkout   Marks the party as paid 
 
 patch '/parties/:id/checkout' do
-  @party = Party.find(params[:id])
+  party = Party.find(params[:id])
+  binding.pry
+  party.update(params[:party])
   redirect '/parties'
 end
 
