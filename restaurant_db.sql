@@ -23,5 +23,5 @@ CREATE TABLE orders(
   time TIMESTAMP,
   party_id INTEGER,
   food_id INTEGER,
-  charge boolean
+  charge INTEGER
 );

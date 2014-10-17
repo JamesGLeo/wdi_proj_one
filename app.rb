@@ -27,7 +27,6 @@ end
 ## POST  /foods  Creates a new food item
 post '/foods' do
   food = Food.create(params[:food])
-  binding.pry
   redirect "/foods/#{food.id}"
 end
 
@@ -114,7 +113,8 @@ end
 patch '/orders/:id' do
   order = Order.find(params[:id])
   order.update(params[:order])
-  redirect "/parties/#{party.id}"
+binding.pry
+ redirect "/parties/#{party.id}"
 end
 
 ## DELETE  /orders   Removes an order
@@ -132,6 +132,7 @@ get '/parties/:id/receipt' do
 end
 
 post '/receipts' do
+  @party = Party.find(params[:id])
   food_costs = params[:order].values[1].map! { |cost| cost.to_f }
   food_dishnames = params[:order].values[0]
   receipt_items = food_costs.zip(food_dishnames) 
@@ -156,16 +157,16 @@ post '/receipts' do
   receipt_file.write("\nThank you for your Business!\n")
   receipt_file.close
 
-  redirect "/parties"
+binding.pry
+  redirect "/parties/#{parties.id}"
 end
 
 # PATCH   /parties/:id/checkout   Marks the party as paid 
 
 patch '/parties/:id/checkout' do
   party = Party.find(params[:id])
-  binding.pry
   party.update(params[:party])
-  redirect '/parties'
+ redirect "/parties/#{party.id}"
 end
 
 get '/console' do
