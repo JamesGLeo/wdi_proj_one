@@ -1,5 +1,13 @@
 <h2>New Menu Item</h2>
 
+<!-- Prints errors -->
+<% if @errors %>
+  <% @errors.each do |error| %>
+    <%= error %>
+  <% end %>
+<% end %>
+
+<!-- Form to input new item -->
 <form action="/foods" method="post">
   <input type="text" name="food[dishname]" placeholder="Item">
   <input type="text" name="food[price]" placeholder="Price">

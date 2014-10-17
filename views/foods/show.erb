@@ -1,19 +1,24 @@
 <h2><%= @food.dishname %></h2>
 
+<!-- Show menu item details -->
+
 <h3>Course : <%= @food.course %></h3>
 <h3>Allergens : <%= @food.allergens %></h3>
 <h3>Calories : <%= @food.calories %></h3>
 <h3>Price : <%= @food.price %></h3>
 
+<!-- Edit the item -->
 <form action="/foods/<%= @food.id %>/edit">
   <input type="submit" value="Edit menu item">
 </form>
 
+<!-- Delete the item -->
 <form action="/foods/<%= @food.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete menu item">
 </form>
 
+<!-- Show tables that have ordered this food -->
 <h3>Tables Waiting on This Item</h3>
 
 <ul>

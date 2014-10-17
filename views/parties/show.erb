@@ -33,6 +33,7 @@
   </li>
 </ul>
 
+<!-- Show current orders -->
 <h2>Current Orders</h2>
 <table>
   <% @party.orders.each do |order| %>
@@ -40,6 +41,7 @@
   <tr> 
   <td><%= order.food.dishname %> - - - P:<%= order.food.price %></td> 
 
+<!-- Delete orders -->
     <td>
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
@@ -47,6 +49,7 @@
       <input type="submit" value="Delete Order">
     </form>
     </td>
+<!-- Make order free -->
     <td>
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="patch">
@@ -65,6 +68,7 @@
 <input type="submit" value="Checkout">
 </form>
 
+<!-- Add new orders -->
 <h2>Place an Order</h2>
 
 <form action="/orders" method="post">

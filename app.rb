@@ -27,7 +27,12 @@ end
 ## POST  /foods  Creates a new food item
 post '/foods' do
   food = Food.create(params[:food])
-  redirect "/foods/#{food.id}"
+  if food.valid?
+    redirect "/foods/#{food.id}"
+  else
+    @errors = food.errors.full_messages
+    erb :'foods/new'
+  end
 end
 
 ## GET   /foods/:id  Display a single food item and a list of all the parties that included it
@@ -158,11 +163,10 @@ post '/receipts' do
   receipt_file.close
 
 binding.pry
-  redirect "/parties/#{parties.id}"
+  redirect "/parties"
 end
 
 # PATCH   /parties/:id/checkout   Marks the party as paid 
-
 patch '/parties/:id/checkout' do
   @party = Party.find(params[:id])
   @party.update('paid_check' => true)
