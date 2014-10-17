@@ -113,7 +113,6 @@ end
 # PATCH   /orders/:id   Change item to no-charge  
 patch '/orders/:id' do
   order = Order.find(params[:id])
-  binding.pry
   order.update(params[:order])
   redirect "/parties/#{party.id}"
 end
@@ -127,7 +126,6 @@ end
 ## GET   /parties/:id/receipt  Saves the party's receipt data to a file. 
 ##Displays the content of the receipt. 
 #Offer the file for download.
-
 get '/parties/:id/receipt' do
   @last_receipt = File.read('active_receipt.txt')
   erb :index
@@ -142,12 +140,20 @@ post '/receipts' do
   receipt_file.write("   Thanks for Dining with Us!\n")
   receipt_file.write("We Hope You've Enjoyed Your Meal\n")
   receipt_file.write("\n\n")
+  receipt_file.write("            RECEIPT\n")
+  receipt_file.write("--------------------------------\n")
+
   receipt_items.each do |item|
-    receipt_file.write("#{ item.join('              ') }\n")
+    receipt_file.write("$#{ item.join('              ') }\n")
   end
   receipt_file.write("\nGrand Total:\n")
-  receipt_file.write("#{ food_costs.inject{|sum,x| sum + x } }\n")
-  receipt_file.write("\nThank you for your Business\n")
+  receipt_file.write("$#{ food_costs.inject{|sum,x| sum + x } }\n")
+  receipt_file.write("\nSuggested Gratuity:\n")
+  receipt_file.write("15% - $#{ food_costs.inject{|sum,x| sum + x } * 0.15 }\n")
+  receipt_file.write("20% - $#{ food_costs.inject{|sum,x| sum + x } * 0.20 }\n")
+  receipt_file.write("25% - $#{ food_costs.inject{|sum,x| sum + x } * 0.25 }\n")
+
+  receipt_file.write("\nThank you for your Business!\n")
   receipt_file.close
 
   redirect "/parties"

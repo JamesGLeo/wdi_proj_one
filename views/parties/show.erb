@@ -38,7 +38,7 @@
     <td>
     <form action="/orders/<%= order.id %>" method="post">
       <input type="hidden" name="_method" value="patch">
-      <input type="hidden" name="order[charge]" value="<%= false %>">
+      <input type="hidden" name="order[charge]" value="<%= 0 %>">
       <input type="submit" value="On the House"> 
     </form>
     </td>
