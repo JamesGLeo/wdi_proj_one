@@ -10,7 +10,7 @@ Dir[ROOT_PATH+"/models/*.rb"].each { |file| require file }
 
 ## GET   /   Displays links to navigate the application (including links to each current parties)
 get '/' do
-  erb :'/home'
+  erb :'index'
 end
 
 ## GET   /foods  Display a list of food items available
@@ -33,7 +33,7 @@ end
 ## GET   /foods/:id  Display a single food item and a list of all the parties that included it
 get '/foods/:id' do
   @food = Food.find(params[:id])
-  erb :'/foods/show'    
+  erb :'/foods/show'
 end
 
 ## GET   /foods/:id/edit   Display a form to edit a food item
@@ -164,9 +164,9 @@ end
 # PATCH   /parties/:id/checkout   Marks the party as paid 
 
 patch '/parties/:id/checkout' do
-  party = Party.find(params[:id])
-  party.update(params[:party])
- redirect "/parties/#{party.id}"
+  @party = Party.find(params[:id])
+  @party.update('paid_check' => true)
+  redirect "/parties/#{@party.id}"
 end
 
 get '/console' do

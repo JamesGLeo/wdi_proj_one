@@ -4,22 +4,34 @@
 <h3>Group Size : <%= @party.groupsize %></h3>
 <h3>Check Paid? : <%= @party.paid_check == true ? "Yes" : "No" %> </h3>
 
+<ul>
+
 <!-- Print Receipt -->
-<form action="/receipts" method="post">
-  <% @party.orders.each do |order| %>
-  <input type="hidden" name="order[dishname][]" value="<%= order.food.dishname %>">
-  <input type="hidden" name="order[price][]" value="<%= order.food.price %>">  
-  <% end %>
-  <input type="submit" value="Print Receipt">
-</form>
-
-<!-- Form to Edit Party -->
-<h4><a href="/parties/<%= @party.id %>/edit">Edit guest party</a></h4>
-
-<form action="/parties/<%= @party.id %>" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete party">
-</form>
+  <li>
+  <form action="/receipts" method="post">
+    <% @party.orders.each do |order| %>
+    <input type="hidden" name="order[dishname][]" value="<%= order.food.dishname %>">
+    <input type="hidden" name="order[price][]" value="<%= order.food.price %>">
+    <% end %>
+    <input type="hidden" name="party[party_id]" value="<%= @party.id %>">
+    <input type="submit" value="Print Receipt">
+  </form>
+  </li>
+  <!-- Form to Edit Party -->
+  <li>
+  <form action="/parties/<%= @party.id %>/edit">
+    <input type="hidden" name="_method">
+    <input type="submit" value="Edit party">
+  </form>
+  </li>
+  <!-- Form to Delete Party -->
+  <li>
+  <form action="/parties/<%= @party.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete party">
+  </form>
+  </li>
+</ul>
 
 <h2>Current Orders</h2>
 <table>
@@ -43,13 +55,14 @@
     </form>
     </td>
   </tr>
+  <input type="hidden" name="party[party_id]" value="<%= @party.id %>">
   <% end %>
 </table>
 
+<!-- Checkout Function -->
 <form action="/parties/<%= @party.id %>/checkout" method="post">
-  <input type="hidden" name="_method" value="patch">
-  <input type="hidden" name="party[paid_check]" value="<%= true %>">
-  <input type="submit" value="Checkout">
+<input type="hidden" name="_method" value="patch">
+<input type="submit" value="Checkout">
 </form>
 
 <h2>Place an Order</h2>

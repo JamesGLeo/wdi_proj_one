@@ -6,14 +6,17 @@
   <link rel="stylesheet" href="/stylesheets/styles.css">
 </head>
 <body>
-  <h1>Who's Hungry??</h1>
+  <h1 class="diner">Mustafa's House of Shawarma</h1>
     <div class="navbar">
-      <div class="link"><a href="/home">Home</a></div>
-      <div class="link"><a href="/parties/new">Add a New Party</a></div>
-      <div class="link"><a href="/foods/new">Add a New Food</a></div>
-      <div class="link"><a href="/parties">See All Parties</a></div>
-      <div class="link"><a href="/foods">See All Foods</a></div>
+      <div class="link"><a href="/">Home</a></div>
+      <div class="link"><a href="/foods">Menu</a></div>
+      <div class="link"><a href="/parties">All Parties</a></div>
+      <div class="link"><a href="/foods/new">New Menu Item</a></div>
+      <div class="link"><a href="/parties/new">New Party</a></div>
     </div>
+
+    <div></div>
+    
     <%= yield %>
 </body>
 </html>

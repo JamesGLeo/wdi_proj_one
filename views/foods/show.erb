@@ -5,7 +5,9 @@
 <h3>Calories : <%= @food.calories %></h3>
 <h3>Price : <%= @food.price %></h3>
 
-<h4><a href="/foods/<%= @food.id %>/edit">Edit menu item</a></h4>
+<form action="/foods/<%= @food.id %>/edit">
+  <input type="submit" value="Edit menu item">
+</form>
 
 <form action="/foods/<%= @food.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
@@ -16,6 +18,6 @@
 
 <ul>
   <% @food.orders.each do |order| %>
-    <li><%= order.party.assigned_table %></li>
+    <li id="waiting_tables"><h2><%= order.party.assigned_table %></h2></li>
   <% end %>
 </ul>

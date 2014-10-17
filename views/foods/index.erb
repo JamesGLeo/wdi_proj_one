@@ -1,8 +1,15 @@
 <h2>Menu</h2>
 
-<ul>
+<table style="width:30%" cellspacing="20" align="left">
+  <tr>
+    <th>Menu Item</th>
+    <th>Price</th>
+  </tr>
   <% @foods.each do |food| %>
-    <li><a href="/foods/<%= food.id %>"><%= food.dishname %></a> <%= food.price %></li>
+    <tr>
+      <td><a href="/foods/<%= food.id %>"><%= food.dishname %></a></td> 
+      <td align=center><%= food.price %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
  
